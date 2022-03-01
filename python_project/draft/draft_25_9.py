@@ -1,0 +1,64 @@
+#!/usr/bin/python3
+# import networkx as nx
+# import osmnx as ox
+import numpy as np
+import math
+import scipy
+from scipy import optimize
+from scipy.interpolate import CubicSpline, splprep, splev, splrep
+import matplotlib.pyplot as plt
+
+X1 = [663152.4238330238, 663144.326025549, 663137.7117110892, 663134.5290215166, 663130.85851524, 663132.0156849998, 663135.8535738299, 663147.2736400473, 663161.7529180674]
+Y1 = [4694184.73727797, 4694182.659641266, 4694174.894817427, 4694165.499053819, 4694153.0032552695, 4694139.764562406, 4694133.076800371, 4694129.387904797, 4694126.970300758]
+X2 = [663152.4238330238, 663148.3749292863, 663146.3504774177, 663145.3382514834, 663144.326025549, 663143.4992362414, 663142.672446934, 663141.0188683191, 663141.0188683191, 663139.3652897042, 663137.7117110892, 663136.9160386961, 663136.1203663029, 663134.5290215166, 663132.6937683783, 663131.7761418092, 663130.85851524, 663131.14780768, 663131.4371001199, 663131.4371001199, 663131.7263925598, 663132.0156849998, 663132.9751572073, 663133.9346294148, 663133.9346294148, 663134.8941016223, 663135.3738377261, 663135.613705778, 663135.8535738299, 663136.5673279684, 663137.281082107, 663138.7085903842, 663141.5636069386, 663147.2736400473, 663161.7529180674]
+Y2 = [4694184.73727797, 4694183.698459618, 4694183.179050442, 4694182.919345854, 4694182.659641266, 4694181.689038286, 4694180.718435306, 4694178.777229346, 4694178.777229346, 4694176.836023387, 4694174.894817427, 4694172.545876525, 4694170.196935623, 4694165.499053819, 4694159.251154544, 4694156.127204906, 4694153.0032552695, 4694149.693582054, 4694146.383908838, 4694146.383908838, 4694143.074235622, 4694139.764562406, 4694138.092621896, 4694136.420681388, 4694136.420681388, 4694134.74874088, 4694133.912770625, 4694133.494785498, 4694133.076800371, 4694132.846244397, 4694132.615688424, 4694132.154576477, 4694131.232352584, 4694129.387904797, 4694126.970300758]
+
+
+#cs = CubicSpline(X1,Y1)
+
+tck1, u1 = splprep([X1, Y1], s = 5)
+new_points1 = splev(np.linspace(0.,1.,100), tck1)
+
+
+X2_unique = []
+Y2_unique = []
+_, idx1 = np.unique(X2, return_index=True)
+idx1_sort = np.sort(idx1)
+for i in idx1_sort:
+    X2_unique.append(X2[i])
+    Y2_unique.append(Y2[i])
+
+tck2, u2 = splprep([X2_unique, Y2_unique], s = 5) # must set s, because exist duplicate x
+new_points2 = splev(np.linspace(0.,1.,100), tck2)
+
+
+spl11 = splrep(X1[-5:-10:-1], Y1[-5:-10:-1])
+X1_splrep1 = np.linspace(X1[4], X1[0], 100)
+Y1_splrep1 = splev(X1_splrep1, spl11)
+spl12 = splrep(X1[4:], Y1[4:], k = 3)
+X1_splrep2 = np.linspace(X1[4], X1[-1], 100)
+Y1_splrep2 = splev(X1_splrep2, spl12)
+
+spl21 = splrep(X2[-19:-36:-1], Y2[-19:-36:-1], s = 1) # must set s, because exist duplicate x
+X2_splrep1 = np.linspace(X2[16], X2[0], 100)
+Y2_splrep1 = splev(X2_splrep1, spl21)
+spl22 = splrep(X2[16:], Y2[16:], s = 1)
+X2_splrep2 = np.linspace(X2[16], X2[-1], 100)
+Y2_splrep2 = splev(X2_splrep2, spl22)
+print(Y2_splrep1)
+#print("tck: ", tck)
+#print("u: ", u)
+#print(new_points[0])
+
+fig, (ax1, ax2, ax3, ax4) = plt.subplots(4)
+ax1.plot(X1, Y1, 'ro', new_points1[0], new_points1[1], 'b-')
+ax1.set_aspect('equal', adjustable='datalim')
+ax2.plot(X2, Y2, 'ro', new_points2[0], new_points2[1], 'b-')
+ax2.set_aspect('equal', adjustable='datalim')
+ax3.plot(X1, Y1, 'ro', X1_splrep1, Y1_splrep1, 'b-', X1_splrep2, Y1_splrep2, 'y-')
+ax3.set_aspect('equal', adjustable='datalim')
+ax4.plot(X2, Y2, 'ro', X2_splrep1, Y2_splrep1, 'b-', X2_splrep2, Y2_splrep2, 'y-')
+ax4.set_aspect('equal', adjustable='datalim')
+plt.show()
+
+
