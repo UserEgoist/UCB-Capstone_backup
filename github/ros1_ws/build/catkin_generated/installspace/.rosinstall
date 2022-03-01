@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/tao/rover_capstone/ros1_ws/install/setup.sh

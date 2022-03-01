@@ -1,0 +1,8 @@
+prefix=/home/tao/rover_capstone/ros1_ws/install
+
+Name: path_planning_global
+Description: Description of path_planning_global
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lroute_planning
+Requires: roscpp rospy std_msgs message_runtime

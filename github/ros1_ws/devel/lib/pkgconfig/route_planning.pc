@@ -1,0 +1,8 @@
+prefix=/home/tao/rover_capstone/ros1_ws/devel
+
+Name: route_planning
+Description: Description of route_planning
+Version: 0.0.0
+Cflags: -I/home/tao/rover_capstone/ros1_ws/src/route_planning/include
+Libs: -L${prefix}/lib -lroute_planning
+Requires: roscpp rospy std_msgs message_runtime

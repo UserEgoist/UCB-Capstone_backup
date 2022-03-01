@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_663ab/fast"
+/usr/bin/make -f CMakeFiles/cmTC_663ab.dir/build.make CMakeFiles/cmTC_663ab.dir/build
+make[1]: Entering directory '/home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_663ab.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_663ab.dir/CheckSymbolExists.c.o   -c /home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_663ab
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_663ab.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_663ab.dir/CheckSymbolExists.c.o  -o cmTC_663ab 
+CMakeFiles/cmTC_663ab.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_663ab.dir/build.make:97: recipe for target 'cmTC_663ab' failed
+make[1]: *** [cmTC_663ab] Error 1
+make[1]: Leaving directory '/home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_663ab/fast' failed
+make: *** [cmTC_663ab/fast] Error 2
+
+File /home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_05d64/fast"
+/usr/bin/make -f CMakeFiles/cmTC_05d64.dir/build.make CMakeFiles/cmTC_05d64.dir/build
+make[1]: Entering directory '/home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_05d64.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_05d64.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_05d64
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_05d64.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_05d64.dir/CheckFunctionExists.c.o  -o cmTC_05d64 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_05d64.dir/build.make:97: recipe for target 'cmTC_05d64' failed
+make[1]: *** [cmTC_05d64] Error 1
+make[1]: Leaving directory '/home/tao/rover_capstone/ros1_ws/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_05d64/fast' failed
+make: *** [cmTC_05d64/fast] Error 2
+
+

@@ -1,0 +1,8 @@
+# the params here need to be loaded 
+#Tao SHU, 11.30.2021
+route_param_set:
+  startX: 42.3828246
+  startY: -121.0180924
+  targetX: 42.3796160
+  targetY: -121.0231100
+
